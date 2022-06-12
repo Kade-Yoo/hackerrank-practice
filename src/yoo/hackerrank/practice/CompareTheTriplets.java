@@ -32,6 +32,14 @@ public class CompareTheTriplets {
             Integer aliceScore = a.get(index);
             Integer bobScore = b.get(index);
 
+            if (isNotRatingConstraint(aliceScore)) {
+                throw new RuntimeException("Alice의 등급을 잘못 입력하였습니다.");
+            }
+
+            if (isNotRatingConstraint(bobScore)) {
+                throw new RuntimeException("Bob의 등급을 잘못 입력하였습니다.");
+            }
+
             if (Objects.equals(aliceScore, bobScore)) {
                 continue;
             }
@@ -46,5 +54,13 @@ public class CompareTheTriplets {
         }
 
         return Arrays.asList(aliceScoresCnt, bobScoresCnt);
+    }
+
+    private boolean isRatingConstraint(Integer rate) {
+        return rate >= 1 && rate <= 100;
+    }
+
+    private boolean isNotRatingConstraint(Integer rate) {
+        return !isRatingConstraint(rate);
     }
 }
