@@ -19,7 +19,7 @@ import java.util.List;
 public class CompareTheTriplets {
 
     private final int FIRST_INDEX = 0;
-    private final int RATE_SIZE = 3;
+    private final int EVALUATE_TYPE_CNT = 3;
 
     /**
      * Alice와 Bob의 도전 등급 비교
@@ -29,46 +29,36 @@ public class CompareTheTriplets {
      * @return Alice와 Bob의 좋게 평가 받은 count
      */
     public List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
-        int aliceWellRateCnt = 0, bobWellRateCnt = 0;
+        int aliceResultCnt = 0, bobResultCnt = 0;
 
-        for (int index = FIRST_INDEX; index < RATE_SIZE; index++) {
-            Integer aliceRate = a.get(index);
-            Integer bobRate = b.get(index);
+        for (int index = FIRST_INDEX; index < EVALUATE_TYPE_CNT; index++) {
+            this.validateConstraint(a.get(index), b.get(index));
 
-            validateConstraint(aliceRate, bobRate);
+            int aliceRate = a.get(index), bobRate = b.get(index);
+            boolean isAliceLargerThanBob = CompareTheTripletsUtils.isAliceLargerThanBob(aliceRate, bobRate);
+            aliceResultCnt = executeWhenAliceLargetThanBob(aliceResultCnt, isAliceLargerThanBob);
 
-            if (isAliceLargerThanBob(aliceRate, bobRate)) {
-                aliceWellRateCnt++;
-            }
-
-            if (isBobLargerThanAlice(aliceRate, bobRate)) {
-                bobWellRateCnt++;
-            }
+            boolean isBobLargerThanAlice = CompareTheTripletsUtils.isBobLargerThanAlice(aliceRate, bobRate);
+            bobResultCnt = executeWhenAliceLargetThanBob(bobResultCnt, isBobLargerThanAlice);
         }
 
-        return Arrays.asList(aliceWellRateCnt, bobWellRateCnt);
+        return Arrays.asList(aliceResultCnt, bobResultCnt);
     }
 
     /**
-     * 밥이 앨리스보다 등급이 큰지 여부
+     * A가 B보다 등급이 클 때 수행 메소드
      *
-     * @param aliceRate 앨리스 등급
-     * @param bobRate 밥 등급
-     * @return 밥이 앨리스보다 등급이 큰지 여부
+     * @param largerCnt A가 B보다 등급이 큰 횟수
+     * @param isALargerThanB A가 B보다 등급이 큰지 여부
+     * @return A가 B보다 등급이 클 때 로직 수행한 결과
      */
-    private boolean isBobLargerThanAlice(Integer aliceRate, Integer bobRate) {
-        return aliceRate < bobRate;
-    }
+    private int executeWhenAliceLargetThanBob(int largerCnt, boolean isALargerThanB) {
+        int resultRateCnt = 0;
+        if (isALargerThanB) {
+            resultRateCnt = largerCnt + 1;
+        }
 
-    /**
-     * 앨리스보다 밥이 등급이 큰지 여부
-     *
-     * @param aliceRate 앨리스 등급
-     * @param bobRate 밥 등급
-     * @return 앨리스보다 밥이 등급이 큰지 여부
-     */
-    private boolean isAliceLargerThanBob(Integer aliceRate, Integer bobRate) {
-        return aliceRate > bobRate;
+        return resultRateCnt;
     }
 
     /**
@@ -91,12 +81,41 @@ public class CompareTheTriplets {
      * CompareTheTriplets의 Utils
      */
     public static class CompareTheTripletsUtils {
+
+        /**
+         * 등급이 1보다 크거나 100보다 작은지 여부
+         *
+         * @param rate 등급
+         * @return 등급이 1보다 크거나 100보다 작은지 여부
+         */
         public static boolean isRatingConstraint(Integer rate) {
             return rate >= 1 && rate <= 100;
         }
 
         public static boolean isNotRatingConstraint(Integer rate) {
             return !isRatingConstraint(rate);
+        }
+
+        /**
+         * 밥이 앨리스보다 등급이 큰지 여부
+         *
+         * @param aliceRate 앨리스 등급
+         * @param bobRate 밥 등급
+         * @return 밥이 앨리스보다 등급이 큰지 여부
+         */
+        public static boolean isBobLargerThanAlice(Integer aliceRate, Integer bobRate) {
+            return aliceRate < bobRate;
+        }
+
+        /**
+         * 앨리스보다 밥이 등급이 큰지 여부
+         *
+         * @param aliceRate 앨리스 등급
+         * @param bobRate 밥 등급
+         * @return 앨리스보다 밥이 등급이 큰지 여부
+         */
+        public static boolean isAliceLargerThanBob(Integer aliceRate, Integer bobRate) {
+            return aliceRate > bobRate;
         }
     }
 }
