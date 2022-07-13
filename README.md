@@ -4,6 +4,7 @@
 - [Compare The Triplets][compare-the-triplets]
 - [Migratory Birds][migratory-birds]
 - [Organizing Containers of Balls][organizing-containers-of-balls]
+- [The Grid Search][the-grid-search]
 
 ## Goal
 - 다양한 알고리즘 케이스를 경험하기 위함
@@ -18,3 +19,4 @@
 [compare-the-triplets]:https://www.hackerrank.com/challenges/compare-the-triplets/problem
 [migratory-birds]:https://www.hackerrank.com/challenges/migratory-birds/problem
 [organizing-containers-of-balls]:https://www.hackerrank.com/challenges/organizing-containers-of-balls/problem
+[the-grid-search]:https://www.hackerrank.com/challenges/the-grid-search/problem
