@@ -100,14 +100,6 @@ public class TheGridSearch {
             this.pattern = pattern;
         }
 
-        public List<String> getGrid() {
-            return this.grid;
-        }
-
-        public List<String> getPattern() {
-            return this.pattern;
-        }
-
         public int getGridSize() {
             return this.grid.size();
         }
@@ -154,8 +146,8 @@ public class TheGridSearch {
     }
 
     public enum YesOrNo {
-        YES("YES")
-        ,NO("NO");
+        YES("YES"),
+        NO("NO");
 
         private final String description;
 
