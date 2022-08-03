@@ -68,8 +68,6 @@ public class QueensAttackII {
         for (int obstacleIdx = 0; obstacleIdx < obstacles.size(); obstacleIdx++) {
             Integer obstacleX = obstacles.get(obstacleIdx).get(0);
             Integer obstacleY = obstacles.get(obstacleIdx).get(1);
-
-            // TODO : 장애물 존재여부 추가
         }
 
         return false;
