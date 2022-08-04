@@ -35,4 +35,16 @@ class SearchInRotatedSortedArrayTest {
         int search = SearchInRotatedSortedArray.search(new int[]{1, 3}, 3);
         assertEquals(search, 1);
     }
+
+    @Test
+    void example6() {
+        int search = SearchInRotatedSortedArray.search(new int[]{1, 3, 5}, 5);
+        assertEquals(search, 2);
+    }
+
+    @Test
+    void example7() {
+        int search = SearchInRotatedSortedArray.search(new int[]{5, 1, 3}, 1);
+        assertEquals(search, 1);
+    }
 }

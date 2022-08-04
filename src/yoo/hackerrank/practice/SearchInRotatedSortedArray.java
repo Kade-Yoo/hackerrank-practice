@@ -8,7 +8,7 @@ package yoo.hackerrank.practice;
 public class SearchInRotatedSortedArray {
 
     public static int search(int[] nums, int target) {
-        int k = binarySearchCustom(nums);
+        int k = binarySearchK(nums);
         int result = binarySearch(nums, target, k);
         return getOrginalIdx(result, k, nums.length);
     }
@@ -17,57 +17,68 @@ public class SearchInRotatedSortedArray {
      * 이진 탐색
      */
     private static int binarySearch(int[] nums, int target, int k) {
-        int middle = nums.length / 2;
+        int length = nums.length;
+        int middle = length / 2;
         int start = 0;
-        int end = nums.length - 1;
+        int end = length - 1;
         int count = 0;
         while (true) {
-            if (nums[getOrginalIdx(middle, k, nums.length)] > target) {
-                end = middle;
-                middle = (middle + start) / 2;
-            } else if (nums[getOrginalIdx(middle, k, nums.length)] < target) {
-                start = middle;
-                middle = (end + middle) / 2;
+            if (nums[getOrginalIdx(middle, k, length)] > target) {
+                end = middle - 1;
+                middle = (end + start) / 2;
+            } else if (nums[getOrginalIdx(middle, k, length)] < target) {
+                start = middle + 1;
+                middle = (end + start) / 2;
             } else {
                 return middle;
             }
 
             count++;
-            if (count >= nums.length) {
+            if (count > length / 2) {
                 return -1;
             }
         }
     }
 
-    private static int getOrginalIdx(int middle, int k, int size) {
-        if (middle == -1) {
-            return middle;
+    private static int getOrginalIdx(int result, int k, int size) {
+        if (result == -1) {
+            return -1;
         }
 
-        return middle < k ? middle + (size - k) : middle - k;
+        return result < k ? result + (size - k) : result - k;
     }
 
-    private static int binarySearchCustom(int[] nums) {
-        int middle = nums.length / 2;
+    /**
+     * k의 값을 찾는 이진 탐색
+     */
+    private static int binarySearchK(int[] nums) {
+        int length = nums.length;
+        int middle = length / 2;
         int start = 0;
-        int end = nums.length - 1;
+        int end = length - 1;
+        int count = 0;
         while (true) {
             if (nums[middle] > nums[start]) {
-                if ((middle != nums.length - 1) && nums[middle] > nums[middle + 1]) {
+                if ((middle != length - 1) && nums[middle] > nums[middle + 1]) {
                     return middle;
                 }
 
-                start = middle;
+                start = (middle  + 1) == nums.length ? middle : middle + 1;
                 middle = (end + middle) / 2;
             } else if (nums[middle] < nums[start]) {
                 if ((middle != 0) && nums[middle] < nums[middle - 1]) {
                     return middle;
                 }
 
-                end = middle;
+                end = (middle - 1) == -1 ? middle : middle - 1;
                 middle = (middle + start) / 2;
             } else {
-                return middle;
+                return 0;
+            }
+
+            count++;
+            if (count > (length / 2)) {
+                return 0;
             }
         }
     }
